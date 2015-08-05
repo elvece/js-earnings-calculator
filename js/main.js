@@ -1,4 +1,5 @@
-
+//calulate object
+//dom object
 
 //grab user-submiteed values from the form with jQuery, making sure you clear the values after each form submission
 $(document).on('ready', function() {
