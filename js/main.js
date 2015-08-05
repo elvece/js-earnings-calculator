@@ -1,6 +1,8 @@
 
+
 //grab user-submiteed values from the form with jQuery, making sure you clear the values after each form submission
 $(document).on('ready', function() {
+  var superTotal = [];
   $("input[type = 'submit']").on('click', function(e){
     e.preventDefault();
     var totalValues = {};
@@ -11,35 +13,39 @@ $(document).on('ready', function() {
 
     var mealField = $('.totals')[0].children;
 
-    $('#meal').empty();
-    mealField[0].innerHTML += "<span id='meal'> $"+calculateSubtotal(totalValues.mealPrice, totalValues.taxRate)+"</span>";
-    mealField[1].innerHTML += "<span id='meal'> $"+calculateTip(totalValues.mealPrice, totalValues.tipPercent)+"</span>";
-    mealField[2].innerHTML += "<span id='meal'> $"+calculateTotal(totalValues.mealPrice, totalValues.taxRate, totalValues.tipPercent)+"</span>";
+    $('.meal').empty();
+    mealField[0].innerHTML += "<span class='meal'> $"+calculateSubtotal(totalValues.mealPrice, totalValues.taxRate).toFixed(2)+"</span>";
+    mealField[1].innerHTML += "<span class='meal'> $"+calculateTip(totalValues.mealPrice, totalValues.tipPercent).toFixed(2)+"</span>";
+    mealField[2].innerHTML += "<span class='meal'> $"+calculateTotal(totalValues.mealPrice, totalValues.taxRate, totalValues.tipPercent).toFixed(2)+"</span>";
 
+    superTotal.push({
+      tip: Number(calculateTip(totalValues.mealPrice, totalValues.tipPercent)),
+      mealPrice: Number(totalValues.mealPrice)
+    });
 
+    $('.total-earnings').empty();
+    var totalField = $('.totals')[1].children;
+    totalField[0].innerHTML += "<span class='total-earnings'> $"+totalTips(superTotal).toFixed(2)+"</span>";
+    totalField[1].innerHTML += "<span class='total-earnings'> "+superTotal.length+"</span>";
+    totalField[2].innerHTML += "<span class='total-earnings'> $"+avgTip(superTotal).toFixed(2)+"</span>";
 
-
-    // var inputFields = $('form input:first-child');
-    // for (var i = 0; i < inputFields.length; i++) {
-    //   temp.push(inputFields[i].value);
-    //   inputFields[i].value = "";
-    // }
-    // totalValues.push(temp);
     console.log(totalValues);
+    console.log(superTotal);
+
+
   });
+
+  $("input:last").on('click', function(e){
+    $('.meal').empty();
+    $('.total-earnings').empty();
+    $('.form-input').val('');
+    superTotal = [];
+  });
+
+  $("input:nth-child(5)").on('click', function(){
+    $('.form-input').val('');
+  });
+
 });
 
 
-//calculate total charges, from the user submitted values and then append to the DOM
-
-
-
-
-
-
-
-
-//refactor of for loop with map--not ideal in this case?
-// userValues = inputFields.map(function(input){
-//   return inputFields[input].value;
-// });

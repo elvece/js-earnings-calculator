@@ -15,3 +15,7 @@
 .totals > p {
   font-weight: bold;
 }
+
+.totals > p > span {
+  font-weight:normal;
+}

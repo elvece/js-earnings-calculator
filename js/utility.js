@@ -15,3 +15,22 @@ function calculateSubtotal(total, taxRate){
 function calculateTotal(total, taxRate, tipPercent){
   return calculateSubtotal(total, taxRate) + calculateTip(total, tipPercent);
 }
+
+function totalTips(arr){
+  var total = 0;
+  for (var i = 0; i < arr.length; i++) {
+    total += arr[i].tip;
+  }
+  return total;
+}
+
+function avgTip(arr){
+  var total = totalTips(arr);
+  return total / arr.length;
+}
+
+// module.export = {
+//   calculateTip: calculateTip,
+//   calculateTax: calculateTax,
+//   calculateSubtotal: calculateSubtotal
+// }
