@@ -29,8 +29,11 @@ function avgTip(arr){
   return total / arr.length;
 }
 
-// module.export = {
-//   calculateTip: calculateTip,
-//   calculateTax: calculateTax,
-//   calculateSubtotal: calculateSubtotal
-// }
+module.export = {
+  calculateTip: calculateTip,
+  calculateTax: calculateTax,
+  calculateSubtotal: calculateSubtotal,
+  calculateTotal: calculateTotal,
+  totalTips: totalTips,
+  avgTip: avgTip
+};

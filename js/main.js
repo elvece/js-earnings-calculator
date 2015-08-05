@@ -32,7 +32,6 @@ $(document).on('ready', function() {
     console.log(totalValues);
     console.log(superTotal);
 
-
   });
 
   $("input:last").on('click', function(e){
