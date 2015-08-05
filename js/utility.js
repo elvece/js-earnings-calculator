@@ -1,4 +1,4 @@
-var calculator = {
+var calc = {
   calculateTip: function(total, tipPercent){
     return total * (tipPercent / 100);
   },
@@ -8,12 +8,12 @@ var calculator = {
   },
 
   calculateSubtotal: function(total, taxRate){
-    var tax = calculateTax(total, taxRate);
+    var tax = this.calculateTax(total, taxRate);
     return total + tax;
   },
 
   calculateTotal: function(total, taxRate, tipPercent){
-    return calculateSubtotal(total, taxRate) + calculateTip(total, tipPercent);
+    return this.calculateSubtotal(total, taxRate) + this.calculateTip(total, tipPercent);
   },
 
   totalTips: function(arr){
@@ -25,16 +25,9 @@ var calculator = {
   },
 
   avgTip: function(arr){
-    var total = totalTips(arr);
+    var total = this.totalTips(arr);
     return total / arr.length;
   }
 };
 
-module.exports = {
-  calculateTip: calculateTip,
-  calculateTax: calculateTax,
-  calculateSubtotal: calculateSubtotal,
-  calculateTotal: calculateTotal,
-  totalTips: totalTips,
-  avgTip: avgTip
-};
+module.exports = calc;
