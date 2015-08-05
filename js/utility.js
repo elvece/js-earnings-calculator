@@ -1,4 +1,4 @@
-var calc = {
+var Calc = {
   calculateTip: function(total, tipPercent){
     return total * (tipPercent / 100);
   },
@@ -30,4 +30,4 @@ var calc = {
   }
 };
 
-module.exports = calc;
+module.exports = Calc;
