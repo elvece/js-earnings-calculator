@@ -30,4 +30,15 @@ var Calc = {
   }
 };
 
+//Local Storage
+function LocalStorage(name, data){
+  this.name = name;
+  this.data = data;
+}
+
+LocalStorage.prototype.init = function() {
+  //create object in ilocal storage
+};
+
+
 module.exports = Calc;

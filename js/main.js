@@ -1,6 +1,21 @@
 $(document).on('ready', function() {
 
-  // var Calc = require('../js/utility.js');
+// var Calc = require('../js/utility.js');
+
+//check if object exists in local storage
+if (!localStorage.getItem('bills')){
+  localStorage.setItem('bills', JSON.stringify([]));
+}
+if (!localStorage.getItem('earnings')){
+  localStorage.setItem('earnings', JSON.stringify([]));
+}
+  //if doesnt exist
+    //manually add new object to local storage
+    //{bills: []}
+    //{earnings: []}
+  //else
+    //do nothing
+
 
 //global array that holds all created objects
   var superTotal = [];
@@ -30,6 +45,14 @@ $(document).on('ready', function() {
 
     mealField[2].innerHTML += "<span class='meal'> $"+Calc.calculateTotal(totalValues.mealPrice, totalValues.taxRate, totalValues.tipPercent).toFixed(2)+"</span>";
 
+
+//get object from local Storage, parsing the data
+var localStorageArray = JSON.parse(localStorage.getItem('bills'));
+//push new bill to array
+localStorageArray.push(bill);
+localStorage.setItem('bills', JSON.stringify(localStorageArray));
+
+
     //pushes everything to master array
     superTotal.push({
       tip: Number(Calc.calculateTip(totalValues.mealPrice, totalValues.tipPercent)),
@@ -50,6 +73,7 @@ $(document).on('ready', function() {
     console.log(totalValues);
     console.log(superTotal);
 
+
   });
 
 //reset button
@@ -67,4 +91,7 @@ $(document).on('ready', function() {
 
 });
 
+//init: create an empty array in local storage (local storage object)
+//add bill --> GET, SET
+//render bill --> GET
 
