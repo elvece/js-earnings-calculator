@@ -3,12 +3,12 @@ $(document).on('ready', function() {
 // var Calc = require('../js/utility.js');
 
 //check if object exists in local storage
-if (!localStorage.getItem('bills')){
-  localStorage.setItem('bills', JSON.stringify([]));
-}
-if (!localStorage.getItem('earnings')){
-  localStorage.setItem('earnings', JSON.stringify([]));
-}
+// if (!localStorage.getItem('bills')){
+//   localStorage.setItem('bills', JSON.stringify([]));
+// }
+// if (!localStorage.getItem('earnings')){
+//   localStorage.setItem('earnings', JSON.stringify([]));
+// }
   //if doesnt exist
     //manually add new object to local storage
     //{bills: []}
@@ -17,60 +17,62 @@ if (!localStorage.getItem('earnings')){
     //do nothing
 
 
-//global array that holds all created objects
+//global array that holds all created objects(runing totals)
   var superTotal = [];
 
 //submit button click functions
   $("input[type = 'submit']").on('click', function(e){
+    //***GRAB FORM VALUES***//
+    //prevents default form behavior
     e.preventDefault();
-
-    var totalValues = {};
-
-    totalValues.mealPrice = parseInt($("input[name = 'meal-price']").val());
-
-    totalValues.taxRate = parseInt($("input[name = 'meal-taxrate']").val());
-
-    totalValues.tipPercent = parseInt($("input[name = 'meal-tiprate']").val());
-
+    //container for each meal value total
+    var totalMealValues = {};
+    //grabs values from the form for each section and added them to the totalMealValues object
+    totalMealValues.mealPrice = parseInt($("input[name = 'meal-price']").val());
+    totalMealValues.taxRate = parseInt($("input[name = 'meal-taxrate']").val());
+    totalMealValues.tipPercent = parseInt($("input[name = 'meal-tiprate']").val());
     //clears values of form after clicking submit
     $('.form-input').val('');
 
+    //***TOTAL MEAL CHARGES SECTION (calculate and appends)***//
+    //makes variable for general area to put total charges per customer` results in
     var mealField = $('.totals')[0].children;
-
-    //total charges section
+    //empties the total charges per customer section
     $('.meal').empty();
-    mealField[0].innerHTML += "<span class='meal'> $"+Calc.calculateSubtotal(totalValues.mealPrice, totalValues.taxRate).toFixed(2)+"</span>";
+    //calculates customer totals
+    var customerTotals = calculateTotals(totalMealValues);
+    //calculates and appends subtotal
+    mealField[0].innerHTML += "<span class='meal'> $"+customerTotals.subtotal.toFixed(2)+"</span>";
+    //calculates and appends tip
+    mealField[1].innerHTML += "<span class='meal'> $"+customerTotals.tip.toFixed(2)+"</span>";
+    //calculates and appends total
+    mealField[2].innerHTML += "<span class='meal'> $"+customerTotals.total.toFixed(2)+"</span>";
 
-    mealField[1].innerHTML += "<span class='meal'> $"+Calc.calculateTip(totalValues.mealPrice, totalValues.tipPercent).toFixed(2)+"</span>";
-
-    mealField[2].innerHTML += "<span class='meal'> $"+Calc.calculateTotal(totalValues.mealPrice, totalValues.taxRate, totalValues.tipPercent).toFixed(2)+"</span>";
-
-
-//get object from local Storage, parsing the data
-var localStorageArray = JSON.parse(localStorage.getItem('bills'));
-//push new bill to array
-localStorageArray.push(bill);
-localStorage.setItem('bills', JSON.stringify(localStorageArray));
-
+// //get object from local Storage, parsing the data
+// var localStorageArray = JSON.parse(localStorage.getItem('bills'));
+// //push new bill to array
+// localStorageArray.push(bill);
+// localStorage.setItem('bills', JSON.stringify(localStorageArray));
 
     //pushes everything to master array
     superTotal.push({
-      tip: Number(Calc.calculateTip(totalValues.mealPrice, totalValues.tipPercent)),
-      mealPrice: Number(totalValues.mealPrice)
+      tip: Number(Calc.calculateTip(totalMealValues.mealPrice, totalMealValues.tipPercent)),
+      mealPrice: Number(totalMealValues.mealPrice)
     });
 
-    //total earnings section
+    //***TOTAL EARNINGS SECTION (calculates and appends)***//
+    //empties total earnings section ??need for local storage
     $('.total-earnings').empty();
-
+    //makes variable for general area to put running totals results in
     var totalField = $('.totals')[1].children;
-
+    //calculates and appends total tips
     totalField[0].innerHTML += "<span class='total-earnings'> $"+Calc.totalTips(superTotal).toFixed(2)+"</span>";
-
+    //calculates and appends meal count
     totalField[1].innerHTML += "<span class='total-earnings'> "+superTotal.length+"</span>";
-
+    //calculates and appends average tip
     totalField[2].innerHTML += "<span class='total-earnings'> $"+Calc.avgTip(superTotal).toFixed(2)+"</span>";
 
-    console.log(totalValues);
+    console.log(totalMealValues);
     console.log(superTotal);
 
 
