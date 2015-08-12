@@ -18,7 +18,7 @@ $(document).on('ready', function() {
 
 
 //global array that holds all created objects(runing totals)
-  var superTotal = [];
+  var superTotals = [];
 
 //submit button click functions
   $("input[type = 'submit']").on('click', function(e){
@@ -55,7 +55,7 @@ $(document).on('ready', function() {
 // localStorage.setItem('bills', JSON.stringify(localStorageArray));
 
     //pushes customer total objects to master array
-    superTotal.push(customerTotals);
+    superTotals.push(customerTotals);
 
     //***TOTAL EARNINGS SECTION (calculates and appends)***//
     //empties total earnings section ??need for local storage
@@ -71,7 +71,7 @@ $(document).on('ready', function() {
     totalField[2].innerHTML += "<span class='total-earnings'> $"+runningTotals.avgTip.toFixed(2)+"</span>";
 
     console.log(totalMealValues);
-    console.log(superTotal);
+    console.log(superTotals);
 
   });
 
