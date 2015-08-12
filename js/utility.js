@@ -24,7 +24,7 @@ function calculateRunningTotals(arr){
   //calculates total tips
   var totalTips = 0;
   for (var i = 0; i < arr.length; i++) {
-  total += arr[i].tip;
+    totalTips += arr[i].tip;
   }
   //calculates average tip
   var avgTip = totalTips / mealCount;

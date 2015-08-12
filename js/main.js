@@ -35,7 +35,7 @@ $(document).on('ready', function() {
     $('.form-input').val('');
 
     //***TOTAL MEAL CHARGES SECTION (calculate and appends)***//
-    //makes variable for general area to put total charges per customer` results in
+    //makes variable for area to put total charges per customer` results in
     var mealField = $('.totals')[0].children;
     //empties the total charges per customer section
     $('.meal').empty();
@@ -54,27 +54,24 @@ $(document).on('ready', function() {
 // localStorageArray.push(bill);
 // localStorage.setItem('bills', JSON.stringify(localStorageArray));
 
-    //pushes everything to master array
-    superTotal.push({
-      tip: Number(Calc.calculateTip(totalMealValues.mealPrice, totalMealValues.tipPercent)),
-      mealPrice: Number(totalMealValues.mealPrice)
-    });
+    //pushes customer total objects to master array
+    superTotal.push(customerTotals);
 
     //***TOTAL EARNINGS SECTION (calculates and appends)***//
     //empties total earnings section ??need for local storage
     $('.total-earnings').empty();
-    //makes variable for general area to put running totals results in
+    //makes variable for area to put running totals results in
     var totalField = $('.totals')[1].children;
     //calculates and appends total tips
-    totalField[0].innerHTML += "<span class='total-earnings'> $"+Calc.totalTips(superTotal).toFixed(2)+"</span>";
+    var runningTotals = calculateRunningTotals(superTotals);
+    totalField[0].innerHTML += "<span class='total-earnings'> $"+runningTotals.totalTips.toFixed(2)+"</span>";
     //calculates and appends meal count
-    totalField[1].innerHTML += "<span class='total-earnings'> "+superTotal.length+"</span>";
+    totalField[1].innerHTML += "<span class='total-earnings'> "+runningTotals.mealCount+"</span>";
     //calculates and appends average tip
-    totalField[2].innerHTML += "<span class='total-earnings'> $"+Calc.avgTip(superTotal).toFixed(2)+"</span>";
+    totalField[2].innerHTML += "<span class='total-earnings'> $"+runningTotals.avgTip.toFixed(2)+"</span>";
 
     console.log(totalMealValues);
     console.log(superTotal);
-
 
   });
 
