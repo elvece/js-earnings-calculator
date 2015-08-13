@@ -1,5 +1,4 @@
-$(document).on('ready', function() {
-
+$(document).ready(function(){
 // var Calc = require('../js/utility.js');
 
 //check if object exists in local storage
